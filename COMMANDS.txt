@@ -1,0 +1,441 @@
+# TERMUX SCRIPTS COMMAND REFERENCE
+# Complete guide to all available scripts and their usage
+# =====================================================
+
+## GETTING STARTED
+# Make scripts executable first:
+chmod +x *.sh
+
+# Run the main script manager:
+./script-manager.sh
+
+# Or run individual scripts:
+./script-name.sh
+
+## ===========================================
+## SYSTEM & MAINTENANCE SCRIPTS
+## ===========================================
+
+### 1. SYSTEM-INFO.SH - System Information Display
+# Basic usage:
+./system-info.sh
+
+# What it shows:
+- Device model and Android version
+- CPU information and cores
+- Memory and disk usage
+- Network connectivity
+- Package information
+- System uptime
+
+### 2. CLEANUP.SH - System Cleanup
+# Basic usage:
+./cleanup.sh
+
+# What it cleans:
+- Package manager cache
+- Temporary files (/tmp, ~/.cache)
+- Python cache files (*.pyc, __pycache__)
+- Node.js cache
+- Log files
+- Editor backup files (*~, *.swp)
+- Broken symbolic links
+- Optional: Downloads folder (asks permission)
+
+### 3. UPDATE-ALL.SH - Complete System Update
+# Basic usage:
+./update-all.sh
+
+# What it updates:
+- All Termux packages (pkg update && pkg upgrade)
+- Python packages (pip list --outdated)
+- Node.js global packages (npm update -g)
+- Cleans package cache automatically
+- Shows disk usage after update
+
+### 4. BATTERY-MONITOR.SH - Battery Status Monitor
+# Basic usage:
+./battery-monitor.sh
+
+# Options available:
+1. Refresh battery status
+2. Continuous monitoring (custom interval)
+3. View battery history logs
+4. Power saving tips
+5. Battery alerts setup
+
+# Continuous monitoring:
+# Creates log files: battery_log_YYYYMMDD_HHMM.txt
+# Press Ctrl+C to stop monitoring
+
+## ===========================================
+## SETUP & CONFIGURATION SCRIPTS
+## ===========================================
+
+### 5. INSTALL-ESSENTIALS.SH - Essential Package Installer
+# Basic usage (run this FIRST):
+./install-essentials.sh
+
+# Installs automatically:
+- curl, wget, git, vim, nano
+- openssh, rsync, zip, unzip, tar
+- grep, sed, awk, jq, tree, htop, ncdu
+- termux-tools, termux-api
+
+# Interactive installs (asks permission):
+- Python + pip + common packages
+- Node.js + npm + global tools
+- Golang + environment setup
+
+### 6. DEV-SETUP.SH - Development Environment Setup
+# Basic usage:
+./dev-setup.sh
+
+# Prerequisites: Run install-essentials.sh first
+
+# What it sets up:
+- Git configuration (asks for name/email)
+- Python development environment
+- Node.js development tools
+- Go development environment
+- Vim configuration with useful settings
+- Bash aliases and shortcuts
+- SSH server setup (optional)
+- Development directory structure
+
+## ===========================================
+## NETWORKING & SECURITY SCRIPTS
+## ===========================================
+
+### 7. NETWORK-SCAN.SH - Network Device Scanner
+# Basic usage:
+./network-scan.sh
+
+# Features:
+- Auto-detects local network range
+- Scans for active devices (192.168.x.0/24)
+- Port scanning on specific hosts
+- Shows MAC addresses and vendors (with nmap)
+- WiFi information display
+
+# Manual network scan:
+# Uses ping if nmap not available
+# Installs nmap automatically if requested
+
+### 8. PASSWORD-GEN.SH - Secure Password Generator
+# Basic usage:
+./password-gen.sh
+
+# Options:
+1. Random password (letters + numbers + symbols)
+2. Alphanumeric only (letters + numbers)
+3. Memorable password (words + numbers + symbols)
+4. PIN number (4-8 digits)
+5. Check existing password strength
+
+# Examples:
+# Random 16-char password: Select option 1, use defaults
+# 4-digit PIN: Select option 4, enter length 4
+# Check strength: Select option 5, enter password
+
+### 9. WEATHER.SH - Weather Information
+# Basic usage:
+./weather.sh
+
+# Options:
+1. Current location weather (uses GPS if available)
+2. Weather by city name
+3. Weather by coordinates
+4. 7-day forecast
+5. Multiple weather formats
+6. Air quality check
+7. Save weather report to file
+
+# Examples:
+# London weather: Select option 2, enter "London"
+# GPS weather: Select option 1 (requires termux-api)
+# Coordinates: Select option 3, enter lat/lon
+
+## ===========================================
+## UTILITY SCRIPTS
+## ===========================================
+
+### 10. FILE-ORGANIZER.SH - Automatic File Organization
+# Basic usage:
+./file-organizer.sh
+
+# Options:
+1. Organize Downloads by file type
+2. Organize Downloads by date and type
+3. Organize custom directory
+4. Show directory statistics
+5. Duplicate file finder
+
+# File categories created:
+- Images: jpg, png, gif, etc.
+- Videos: mp4, avi, mkv, etc.
+- Audio: mp3, wav, flac, etc.
+- Documents: pdf, doc, txt, etc.
+- Archives: zip, rar, tar, etc.
+- Code: py, js, html, etc.
+- Apps: apk files
+- Others: unrecognized types
+
+### 11. QR-GENERATOR.SH - QR Code Generator
+# Basic usage:
+./qr-generator.sh
+
+# Options:
+1. Text/URL QR code
+2. WiFi QR code (auto-connect)
+3. Contact (vCard) QR code
+4. Batch generation from file
+5. Custom options (size, error correction)
+
+# Examples:
+# WiFi QR: Select option 2, enter SSID and password
+# URL QR: Select option 1, enter website URL
+# Batch: Select option 4, provide file with URLs (one per line)
+
+### 12. QUICK-UTILS.SH - Fast Utility Functions
+# Basic usage:
+./quick-utils.sh
+
+# Available functions:
+compress <file/dir> [output]     - Compress to .tar.gz
+extract <archive> [output_dir]   - Auto-extract any archive
+backup <file/dir> [backup_dir]   - Quick backup with timestamp
+search <term> [dir] [filetype]   - Search text in files
+download <url> [output]          - Download from URL
+sync_dirs <source> <dest>        - Sync directories
+convert_img <img> <format>       - Convert image formats
+process_text <op> <file>         - Text processing
+
+# Examples:
+# Compress folder: compress /path/to/folder mybackup.tar.gz
+# Extract archive: extract myfile.zip /output/directory
+# Backup with timestamp: backup ~/important-files
+# Search for text: search "error" /var/log txt
+# Download file: download https://example.com/file.zip
+
+## ===========================================
+## MEDIA & CONTENT SCRIPTS
+## ===========================================
+
+### 13. YOUTUBE-DL.SH - YouTube Downloader
+# Basic usage:
+./youtube-dl.sh
+
+# Options:
+1. Audio only (MP3) - Same as your yt-exc function
+2. Video (best quality)
+3. Playlist (audio)
+4. Playlist (video)
+5. Video information
+6. Available formats
+7. Custom format download
+8. Batch download from file
+
+# Your original yt-exc equivalent:
+# Select option 1, paste YouTube URL
+# Downloads to ~/storage/music/playlist/title.mp3
+# Includes metadata and thumbnails
+
+# Command line equivalent of your yt-exc:
+yt-dlp -x --audio-format mp3 --audio-quality 0 --add-metadata --embed-thumbnail -o '~/storage/music/%(playlist)s/%(title)s.%(ext)s' "YOUTUBE_URL"
+
+# Batch download:
+# Create file with URLs (one per line)
+# Select option 8, provide file path
+
+### 14. MEDIA-CONVERTER.SH - Media Format Converter
+# Basic usage:
+./media-converter.sh
+
+# Options:
+1. Convert audio format
+2. Convert video format
+3. Extract audio from video
+4. Batch convert files
+5. Compress video file
+6. Get media info
+
+# Audio conversion examples:
+# MP3 to FLAC: Select option 1, input.mp3, flac, 320k
+# WAV to AAC: Select option 1, input.wav, aac, 256k
+
+# Video conversion examples:
+# MP4 to AVI: Select option 2, input.mp4, avi, medium
+# Resize video: Select option 2, add resolution like 1920:1080
+
+# Extract audio from video:
+# Select option 3, input.mp4, mp3, 192k
+
+# Batch convert:
+# Select option 4, /path/to/directory, mp3, audio
+
+### 15. TEXT-PROCESSOR.SH - Advanced Text Processing
+# Basic usage:
+./text-processor.sh
+
+# Options:
+1. Convert case (upper/lower/title/sentence)
+2. Find and replace text
+3. Extract specific lines
+4. Merge multiple files
+5. Split file into parts
+6. Text statistics and analysis
+7. Remove duplicate lines
+8. Format text (trim/normalize/clean)
+9. Custom regex processing
+
+# Examples:
+# Convert to uppercase: Select option 1, file.txt, upper
+# Find/replace: Select option 2, file.txt, "old text", "new text"
+# Extract lines 10-50: Select option 3, file.txt, 10, 50
+# Remove duplicates: Select option 7, file.txt
+# Get statistics: Select option 6, file.txt
+
+## ===========================================
+## SCRIPT MANAGER
+## ===========================================
+
+### SCRIPT-MANAGER.SH - Central Script Hub
+# Basic usage:
+./script-manager.sh
+
+# Features:
+- Interactive menu for all scripts
+- Makes scripts executable automatically
+- Shows script information and descriptions
+- Create new script templates
+- Edit scripts in directory
+- Reload manager without exit
+
+# Options 1-15: Run individual scripts
+# Option 16: Show detailed script info
+# Option 17: Reload manager
+# Option 18: Edit scripts in editor
+# Option 19: Open scripts directory
+# Option 20: Create new script template
+
+## ===========================================
+## ADVANCED USAGE EXAMPLES
+## ===========================================
+
+### Chaining Commands:
+# Update system then clean up:
+./update-all.sh && ./cleanup.sh
+
+# Get system info and save to file:
+./system-info.sh > system_report.txt
+
+# Organize files then check disk usage:
+./file-organizer.sh && df -h
+
+### Automation Examples:
+# Daily maintenance (add to cron if available):
+#!/bin/bash
+./update-all.sh
+./cleanup.sh
+./battery-monitor.sh > daily_battery_$(date +%Y%m%d).log
+
+# Backup important directories:
+./quick-utils.sh
+# Then use backup function for each important directory
+
+### Integration with Android:
+# Download music from YouTube:
+./youtube-dl.sh  # Option 1 for audio
+./file-organizer.sh  # Organize downloaded files
+
+# Convert and compress media:
+./media-converter.sh  # Convert formats
+./quick-utils.sh  # Compress results
+
+### Productivity Workflows:
+# 1. Morning setup:
+   ./weather.sh           # Check weather
+   ./battery-monitor.sh   # Check battery
+   ./network-scan.sh      # Check network
+
+# 2. Development setup:
+   ./install-essentials.sh  # One time
+   ./dev-setup.sh          # One time
+   ./update-all.sh         # Regular updates
+
+# 3. File management:
+   ./file-organizer.sh     # Organize downloads
+   ./quick-utils.sh        # Backup important files
+   ./cleanup.sh            # Clean system
+
+## ===========================================
+## TROUBLESHOOTING
+## ===========================================
+
+### Common Issues:
+
+1. Permission Denied:
+   chmod +x script-name.sh
+   
+2. Command Not Found:
+   ./install-essentials.sh  # Install required packages
+   
+3. Package Installation Fails:
+   pkg update
+   pkg upgrade
+   
+4. Storage Access Issues:
+   termux-setup-storage
+   
+5. API Functions Don't Work:
+   pkg install termux-api
+   # Also install Termux:API from Google Play Store
+   
+6. Scripts Won't Execute:
+   # Check if bash is available:
+   which bash
+   # If not, install:
+   pkg install bash
+
+### Performance Tips:
+- Run cleanup.sh regularly
+- Use update-all.sh weekly
+- Monitor battery with battery-monitor.sh
+- Organize files with file-organizer.sh monthly
+- Backup important data with quick-utils.sh backup function
+
+### File Locations:
+- Scripts directory: Current directory with all .sh files
+- Downloads: /storage/emulated/0/Download
+- Music: /storage/emulated/0/Music
+- Videos: /storage/emulated/0/Videos
+- Backups: /storage/emulated/0/Backups (default)
+- Termux home: /data/data/com.termux/files/home
+- Android storage: /storage/emulated/0
+
+## ===========================================
+## KEYBOARD SHORTCUTS & TIPS
+## ===========================================
+
+### Termux Keyboard Shortcuts:
+- Ctrl+C: Stop current process
+- Ctrl+D: Exit current session
+- Ctrl+L: Clear screen
+- Volume Down + C: Ctrl key
+- Volume Down + X: Alt key
+
+### Quick Navigation:
+- cd ~: Go to home directory
+- cd /storage/emulated/0: Go to Android storage
+- ls -la: List all files with details
+- pwd: Show current directory
+
+### Script Shortcuts (after dev-setup.sh):
+- ll: Detailed file listing
+- cls: Clear screen
+- gs: Git status
+- py: Python
+- serve: Start HTTP server on port 8000
+
+Remember: Always run install-essentials.sh first, then dev-setup.sh for best experience!
