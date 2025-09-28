@@ -99,6 +99,17 @@ main() {
         "update-all.sh:termux-update"
         "system-info.sh:termux-info"
         "battery-monitor.sh:termux-battery"
+        "install-essentials.sh:termux-essentials"
+        "dev-setup.sh:termux-dev-setup"
+        "file-organizer.sh:termux-organize"
+        "password-gen.sh:termux-password"
+        "weather.sh:termux-weather"
+        "youtube-dl.sh:termux-youtube"
+        "media-converter.sh:termux-convert"
+        "text-processor.sh:termux-text"
+        "qr-generator.sh:termux-qr"
+        "quick-utils.sh:termux-utils"
+        "network-scan.sh:termux-scan"
     )
     
     for cmd in "${commands[@]}"; do
@@ -120,6 +131,22 @@ alias tsmon='termux-monitor'
 alias tsbackup='termux-backup'
 alias tsdev='termux-dev'
 alias tsnet='termux-network'
+alias tssched='termux-schedule'
+alias tsclean='termux-clean'
+alias tsupdate='termux-update'
+alias tsinfo='termux-info'
+alias tsbat='termux-battery'
+alias tsessentials='termux-essentials'
+alias tssetup='termux-dev-setup'
+alias tsorg='termux-organize'
+alias tspass='termux-password'
+alias tsweather='termux-weather'
+alias tsyt='termux-youtube'
+alias tsconv='termux-convert'
+alias tstext='termux-text'
+alias tsqr='termux-qr'
+alias tsutils='termux-utils'
+alias tsscan='termux-scan'
 alias tscd='cd ~/termux-command'
 alias tshelp='cat ~/termux-command/COMMANDS.txt | less'
 EOF
@@ -138,15 +165,22 @@ EOF
     print_colored "$GREEN" "🎉 Installation completed successfully!"
     echo
     print_colored "$WHITE" "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    print_colored "$CYAN" "📋 Available commands:"
+    print_colored "$CYAN" "📋 Main commands:"
     print_colored "$GREEN" "  termux-scripts     # Main script manager"
     print_colored "$GREEN" "  termux-monitor     # System monitoring"
     print_colored "$GREEN" "  termux-backup      # Automated backup"
     print_colored "$GREEN" "  termux-dev         # Development tools"
     print_colored "$GREEN" "  termux-network     # Network utilities"
+    print_colored "$GREEN" "  termux-essentials  # Install essential packages"
+    echo
+    print_colored "$CYAN" "📋 All available commands:"
+    print_colored "$GREEN" "  termux-clean, termux-update, termux-info, termux-battery"
+    print_colored "$GREEN" "  termux-organize, termux-password, termux-weather"
+    print_colored "$GREEN" "  termux-youtube, termux-convert, termux-text, termux-qr"
     echo
     print_colored "$CYAN" "📋 Short aliases:"
-    print_colored "$GREEN" "  tsscripts, tsmon, tsbackup, tsdev, tsnet"
+    print_colored "$GREEN" "  tsscripts, tsmon, tsbackup, tsdev, tsnet, tsessentials"
+    print_colored "$GREEN" "  tsclean, tsupdate, tsinfo, tsbat, tsorg, tspass, etc."
     echo
     print_colored "$YELLOW" "⚠️  IMPORTANT: Restart your terminal or run:"
     print_colored "$WHITE" "    source ~/.bashrc"
