@@ -4,22 +4,27 @@ A comprehensive collection of 21+ powerful scripts for Termux on Android. Automa
 
 ## 🚀 Quick Installation
 
-**One-command installation:**
+**Option 1: Fully Automatic (Recommended)**
+```bash
+curl -sL https://raw.githubusercontent.com/omriphoenix-arch/Termux-command/main/auto-install.sh | bash
+```
+
+**Option 2: Interactive Installation**
 ```bash
 curl -sL https://raw.githubusercontent.com/omriphoenix-arch/Termux-command/main/install.sh | bash
 ```
 
-**Alternative installation:**
+**Option 3: Quick Install (Same as Option 1)**
 ```bash
 curl -sL https://raw.githubusercontent.com/omriphoenix-arch/Termux-command/main/quick-install.sh | bash
 ```
 
-This will:
-- ✅ Download all scripts automatically
-- ✅ Install required dependencies  
-- ✅ Create global command shortcuts
-- ✅ Set up convenient aliases
-- ✅ Configure storage permissions
+**What gets installed:**
+- ✅ All 21+ scripts downloaded automatically
+- ✅ Required dependencies installed
+- ✅ Global command shortcuts created (`termux-scripts`, `termux-monitor`, etc.)
+- ✅ Convenient aliases set up (`tsscripts`, `tsmon`, etc.)
+- ✅ Ready to use immediately after restart
 
 ## 📋 Available Commands After Installation
 

@@ -267,16 +267,24 @@ setup_storage() {
     
     if [ ! -d "$HOME/storage" ]; then
         print_colored "$YELLOW" "Storage permission required for some scripts to work properly."
-        print_colored "$CYAN" "Please grant storage permission when prompted..."
-        termux-setup-storage
         
-        # Wait for storage setup
-        sleep 3
-        
-        if [ -d "$HOME/storage" ]; then
-            success_message "Storage access configured"
+        # Check if running in non-interactive mode
+        if [ ! -t 0 ]; then
+            print_colored "$CYAN" "Non-interactive mode: Skipping storage setup for now."
+            print_colored "$CYAN" "Run 'termux-setup-storage' manually after installation."
+            warning_message "Storage access not configured. Run 'termux-setup-storage' manually."
         else
-            warning_message "Storage access not configured. Some features may not work."
+            print_colored "$CYAN" "Please grant storage permission when prompted..."
+            termux-setup-storage
+            
+            # Wait for storage setup
+            sleep 3
+            
+            if [ -d "$HOME/storage" ]; then
+                success_message "Storage access configured"
+            else
+                warning_message "Storage access not configured. Some features may not work."
+            fi
         fi
     else
         success_message "Storage access already configured"
@@ -327,15 +335,22 @@ show_completion_message() {
     print_colored "$WHITE" "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     print_colored "$CYAN" "📖 Documentation:"
     print_colored "$GREEN" "  tshelp             # View complete command reference"
-    print_colored "$GREEN" "  cat ~/termux-scripts/README.md"
+    print_colored "$GREEN" "  cat ~/termux-command/README.md"
     echo
     print_colored "$CYAN" "📁 Script location: ~/termux-command/"
     print_colored "$CYAN" "🔗 Commands available globally via ~/.local/bin/"
     echo
-    print_colored "$YELLOW" "⚠️  Important: Restart your terminal or run 'source ~/.bashrc' to activate aliases"
+    print_colored "$YELLOW" "⚠️  Important Next Steps:"
+    print_colored "$WHITE" "1. Restart your terminal or run: source ~/.bashrc"
+    if [ ! -d "$HOME/storage" ]; then
+        print_colored "$WHITE" "2. Setup storage access: termux-setup-storage"
+        print_colored "$WHITE" "3. Run 'termux-scripts' to get started!"
+    else
+        print_colored "$WHITE" "2. Run 'termux-scripts' to get started!"
+    fi
     print_colored "$WHITE" "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo
-    print_colored "$PURPLE" "🚀 Quick start: Run 'termux-scripts' to get started!"
+    print_colored "$PURPLE" "🚀 Quick start: Run 'termux-scripts' or restart your terminal first!"
 }
 
 # Main installation process
@@ -350,12 +365,18 @@ main() {
     echo "  • Configure storage permissions"
     echo
     
-    echo -n "Proceed with installation? (y/N): "
-    read -r confirm
-    
-    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
-        print_colored "$YELLOW" "Installation cancelled"
-        exit 0
+    # Check if running in non-interactive mode (piped from curl)
+    if [ ! -t 0 ]; then
+        print_colored "$CYAN" "Running in automatic mode (non-interactive)..."
+        print_colored "$GREEN" "Proceeding with installation..."
+    else
+        echo -n "Proceed with installation? (y/N): "
+        read -r confirm
+        
+        if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+            print_colored "$YELLOW" "Installation cancelled"
+            exit 0
+        fi
     fi
     
     echo
@@ -419,12 +440,17 @@ update_installation() {
 remove_installation() {
     print_colored "$YELLOW" "🗑️  Removing Termux Scripts installation..."
     
-    echo -n "Are you sure you want to remove the installation? (y/N): "
-    read -r confirm
-    
-    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
-        print_colored "$YELLOW" "Removal cancelled"
-        exit 0
+    # Check if running in non-interactive mode
+    if [ ! -t 0 ]; then
+        print_colored "$CYAN" "Non-interactive mode: Proceeding with removal..."
+    else
+        echo -n "Are you sure you want to remove the installation? (y/N): "
+        read -r confirm
+        
+        if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+            print_colored "$YELLOW" "Removal cancelled"
+            exit 0
+        fi
     fi
     
     # Remove installation directory
