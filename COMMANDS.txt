@@ -28,7 +28,41 @@ chmod +x *.sh
 - Package information
 - System uptime
 
-### 2. CLEANUP.SH - System Cleanup
+### 2. SYSTEM-MONITOR.SH - Real-time System Monitoring Dashboard
+# Basic usage:
+./system-monitor.sh                # Interactive mode
+
+# Advanced options:
+./system-monitor.sh -c             # Continuous monitoring mode
+./system-monitor.sh -i 5           # Custom refresh interval (5 seconds)
+./system-monitor.sh -r             # Generate system report only
+./system-monitor.sh -l             # Show alert log
+
+# Features:
+- Real-time CPU, Memory, Storage, Battery monitoring
+- Color-coded progress bars with thresholds
+- Top 5 processes display with CPU/Memory usage
+- Network traffic statistics (RX/TX)
+- Alert system for high resource usage
+- System reports generation with timestamps
+- Configurable thresholds and intervals
+
+# Interactive controls:
+- 'q' to quit
+- 'r' to refresh manually
+- 's' to save system report
+- 'c' to view configuration
+
+# Alert thresholds (configurable):
+- CPU: 80% (shows red warning)
+- Memory: 90% (shows red warning)
+- Storage: 85% (shows red warning)
+
+# Report locations:
+- Reports: ~/system_report_YYYYMMDD_HHMMSS.txt
+- Alert log: ~/.system_monitor.log
+
+### 3. CLEANUP.SH - System Cleanup
 # Basic usage:
 ./cleanup.sh
 
@@ -42,7 +76,7 @@ chmod +x *.sh
 - Broken symbolic links
 - Optional: Downloads folder (asks permission)
 
-### 3. UPDATE-ALL.SH - Complete System Update
+### 4. UPDATE-ALL.SH - Complete System Update
 # Basic usage:
 ./update-all.sh
 
@@ -53,7 +87,50 @@ chmod +x *.sh
 - Cleans package cache automatically
 - Shows disk usage after update
 
-### 4. BATTERY-MONITOR.SH - Battery Status Monitor
+### 5. AUTO-BACKUP.SH - Automated Backup Solution
+# Basic usage:
+./auto-backup.sh                   # Interactive mode (recommended)
+
+# Advanced options:
+./auto-backup.sh --auto            # Automated mode (for cron jobs)
+./auto-backup.sh --list            # List existing backups
+./auto-backup.sh --config          # Edit configuration file
+./auto-backup.sh --delete          # Clean old backups
+./auto-backup.sh --restore         # Restore from backup (coming soon)
+
+# Features:
+- Interactive directory selection for backup
+- Automated compression (tar.gz format)
+- SHA256 checksum generation for integrity
+- Configurable retention policy (default: 30 days)
+- Smart exclusion patterns (cache, temp, logs, git, etc.)
+- Progress indicators and detailed logging
+- Termux notifications on completion
+- Storage permission handling
+
+# Default backup directories:
+- $HOME (Termux home directory)
+- $PREFIX/etc (Termux system configs)
+- $HOME/.termux (Termux settings)
+- $HOME/storage/shared/Documents
+- $HOME/storage/shared/Download
+
+# Configuration file: ~/.backup_config
+- Custom backup directories
+- Compression level (1-9)
+- Retention period in days
+- Email notifications (requires termux-api)
+
+# Backup location: ~/storage/shared/Backups/
+# Naming format: termux-backup-YYYYMMDD_HHMMSS/
+# Contains: backup.tar.gz, backup_info.txt, checksum.sha256
+
+# Automation setup (cron):
+# Install cronie: pkg install cronie
+# Edit crontab: crontab -e
+# Daily backup at 2 AM: 0 2 * * * /path/to/auto-backup.sh --auto
+
+### 6. BATTERY-MONITOR.SH - Battery Status Monitor
 # Basic usage:
 ./battery-monitor.sh
 
@@ -72,7 +149,7 @@ chmod +x *.sh
 ## SETUP & CONFIGURATION SCRIPTS
 ## ===========================================
 
-### 5. INSTALL-ESSENTIALS.SH - Essential Package Installer
+### 7. INSTALL-ESSENTIALS.SH - Essential Package Installer
 # Basic usage (run this FIRST):
 ./install-essentials.sh
 
@@ -87,7 +164,7 @@ chmod +x *.sh
 - Node.js + npm + global tools
 - Golang + environment setup
 
-### 6. DEV-SETUP.SH - Development Environment Setup
+### 8. DEV-SETUP.SH - Development Environment Setup
 # Basic usage:
 ./dev-setup.sh
 
@@ -103,11 +180,59 @@ chmod +x *.sh
 - SSH server setup (optional)
 - Development directory structure
 
+### 9. DEV-TOOLS.SH - Advanced Development Tools & Git Helper
+# Basic usage:
+./dev-tools.sh                     # Interactive menu
+
+# Direct commands:
+./dev-tools.sh setup               # Setup complete dev environment
+./dev-tools.sh status              # Enhanced git status with colors
+./dev-tools.sh commit              # Quick git commit workflow
+./dev-tools.sh init                # Initialize new project with templates
+./dev-tools.sh gitignore           # Create .gitignore for project type
+./dev-tools.sh format              # Code formatter for multiple languages
+./dev-tools.sh deps                # Dependency manager (npm/pip)
+
+# Features:
+- Automated development environment setup
+- Git workflow enhancement with colored output
+- Project templates (Python, Node.js, C/C++, Shell)
+- Intelligent .gitignore generation
+- Code formatting (Python, JavaScript, C/C++, Shell)
+- SSH key management and Git configuration
+- Virtual environment management
+- Package dependency handling
+
+# Project initialization types:
+1. Python Project: src/, tests/, docs/, requirements.txt, .gitignore
+2. Node.js Project: src/, tests/, package.json, .gitignore
+3. C/C++ Project: src/, include/, build/, Makefile, .gitignore
+4. Shell Script Project: scripts/, tests/, executable permissions
+5. Basic Project: docs/, README.md, .gitignore
+
+# Git enhancements:
+- Colored file status indicators
+- Branch sync information (ahead/behind)
+- Recent commit history display
+- Quick commit with auto-push option
+- Remote repository information
+
+# Code formatters:
+- Python: autopep8 (auto-install)
+- JavaScript/JSON: prettier (auto-install)
+- C/C++: clang-format
+- Shell: shfmt or basic formatting
+
+# Configuration locations:
+- Dev tools config: ~/.dev-tools/config
+- Project templates: ~/.dev-tools/templates/
+- SSH keys: ~/.ssh/
+
 ## ===========================================
 ## NETWORKING & SECURITY SCRIPTS
 ## ===========================================
 
-### 7. NETWORK-SCAN.SH - Network Device Scanner
+### 10. NETWORK-SCAN.SH - Network Device Scanner
 # Basic usage:
 ./network-scan.sh
 
@@ -122,7 +247,72 @@ chmod +x *.sh
 # Uses ping if nmap not available
 # Installs nmap automatically if requested
 
-### 8. PASSWORD-GEN.SH - Secure Password Generator
+### 11. NETWORK-TOOLS.SH - Advanced Networking Utilities
+# Basic usage:
+./network-tools.sh                 # Interactive menu
+
+# Direct commands:
+./network-tools.sh setup           # Setup network tools and packages
+./network-tools.sh info            # Complete network information
+./network-tools.sh wifi            # WiFi analyzer with signal strength
+./network-tools.sh scan            # Advanced port scanner
+./network-tools.sh speed           # Network speed test and latency
+./network-tools.sh check           # Connectivity checker for services
+./network-tools.sh monitor         # Real-time network traffic monitor
+./network-tools.sh ssl             # SSL certificate checker
+
+# Features:
+- Network interface information with status
+- Internal/External IP detection
+- WiFi network analysis with security info
+- Multi-type port scanning (Quick/Common/Full/Custom)
+- Network speed testing with multiple servers
+- Connectivity testing for common services
+- Real-time traffic monitoring (RX/TX speeds)
+- SSL certificate validation and expiration check
+
+# WiFi Analyzer:
+- Requires termux-api package
+- Shows SSID, signal strength, frequency, security
+- Color-coded signal strength indicators
+- Sorted by signal strength
+
+# Port Scanner options:
+1. Quick scan: Common ports (21,22,23,25,53,80,110,443,993,995)
+2. Common ports: 1-1000
+3. Full scan: 1-65535 (slow, may be detected)
+4. Custom: User-defined port ranges
+
+# Speed Test:
+- Download speed testing
+- Latency testing to multiple servers (8.8.8.8, 1.1.1.1, Cloudflare)
+- Network performance analysis
+
+# Connectivity Checker tests:
+- Google DNS (8.8.8.8:53)
+- Google web (google.com:80)
+- GitHub (github.com:443)
+- Cloudflare (cloudflare.com:80)
+- DNS resolution testing
+
+# SSL Certificate Checker:
+- Certificate subject and issuer info
+- Validity period checking
+- Expiration warnings (30 days, expired)
+- Works with any hostname and port
+
+# Network Monitor:
+- Real-time RX/TX bandwidth usage
+- Interface auto-detection (wlan0 fallback)
+- Human-readable speed display
+- Press Ctrl+C to stop
+
+# Dependencies auto-installed:
+- nmap, netcat-openbsd, curl, wget
+- openssh, net-tools, iproute2
+- dnsutils, traceroute
+
+### 12. PASSWORD-GEN.SH - Secure Password Generator
 # Basic usage:
 ./password-gen.sh
 
@@ -138,7 +328,7 @@ chmod +x *.sh
 # 4-digit PIN: Select option 4, enter length 4
 # Check strength: Select option 5, enter password
 
-### 9. WEATHER.SH - Weather Information
+### 13. WEATHER.SH - Weather Information
 # Basic usage:
 ./weather.sh
 
@@ -157,10 +347,88 @@ chmod +x *.sh
 # Coordinates: Select option 3, enter lat/lon
 
 ## ===========================================
+## AUTOMATION & SCHEDULING
+## ===========================================
+
+### 14. TASK-SCHEDULER.SH - Task Scheduler & Workflow Automation
+# Basic usage:
+./task-scheduler.sh                # Interactive menu
+
+# Direct commands:
+./task-scheduler.sh setup          # Setup automation environment
+./task-scheduler.sh create         # Create new task
+./task-scheduler.sh list           # List all tasks and schedules
+./task-scheduler.sh run TASK_NAME  # Run specific task
+./task-scheduler.sh schedule TASK  # Schedule a task
+./task-scheduler.sh delete         # Delete a task
+./task-scheduler.sh logs           # View task logs
+./task-scheduler.sh wizard         # Automation wizard with templates
+
+# Features:
+- Visual cron job management interface
+- Task creation wizard with multiple types
+- One-time and recurring task scheduling
+- Comprehensive task logging and monitoring
+- Automation templates for common tasks
+- Notification support via termux-api
+- Background task execution
+
+# Task types supported:
+1. Script execution: Run any shell script
+2. System command: Execute system commands
+3. Backup task: Automated file/directory backup
+4. Network monitoring: Host connectivity checking
+5. Custom workflow: Multi-command sequences
+
+# Scheduling options:
+1. Every minute: * * * * *
+2. Every hour: 0 * * * *
+3. Daily: Custom time (HH:MM)
+4. Weekly: Specific day and time
+5. Monthly: Specific day of month and time
+6. Custom cron expression: Full flexibility
+7. One-time: Specific date and time (uses 'at')
+
+# Automation wizard templates:
+1. Daily backup: Automated tar.gz backup with scheduling
+2. System monitoring: CPU/Memory/Disk alerts with notifications
+3. Network check: Connectivity monitoring with logging
+4. Log cleanup: Automated old log file removal
+
+# File locations:
+- Tasks directory: ~/.automation/tasks/
+- Logs directory: ~/.automation/logs/
+- Configuration: ~/.automation/config
+- Crontab backup: ~/.automation/crontab
+
+# Task execution features:
+- Automatic logging with timestamps
+- Success/failure notifications
+- Exit code tracking
+- Background execution support
+- Parallel task limiting (max 5 by default)
+
+# Log management:
+- Individual log files per task
+- Configurable retention period (30 days default)
+- Log viewing with options (all/last 50 lines)
+- Automatic log rotation
+
+# Dependencies:
+- cron (cronie): For scheduled tasks
+- at: For one-time tasks
+- termux-api: For notifications
+
+# Cron service management:
+# Start cron daemon: crond
+# View cron jobs: crontab -l
+# Edit cron jobs: crontab -e
+
+## ===========================================
 ## UTILITY SCRIPTS
 ## ===========================================
 
-### 10. FILE-ORGANIZER.SH - Automatic File Organization
+### 15. FILE-ORGANIZER.SH - Automatic File Organization
 # Basic usage:
 ./file-organizer.sh
 
@@ -181,7 +449,7 @@ chmod +x *.sh
 - Apps: apk files
 - Others: unrecognized types
 
-### 11. QR-GENERATOR.SH - QR Code Generator
+### 16. QR-GENERATOR.SH - QR Code Generator
 # Basic usage:
 ./qr-generator.sh
 
@@ -197,7 +465,7 @@ chmod +x *.sh
 # URL QR: Select option 1, enter website URL
 # Batch: Select option 4, provide file with URLs (one per line)
 
-### 12. QUICK-UTILS.SH - Fast Utility Functions
+### 17. QUICK-UTILS.SH - Fast Utility Functions
 # Basic usage:
 ./quick-utils.sh
 
@@ -222,7 +490,7 @@ process_text <op> <file>         - Text processing
 ## MEDIA & CONTENT SCRIPTS
 ## ===========================================
 
-### 13. YOUTUBE-DL.SH - YouTube Downloader
+### 18. YOUTUBE-DL.SH - YouTube Downloader
 # Basic usage:
 ./youtube-dl.sh
 
@@ -248,7 +516,7 @@ yt-dlp -x --audio-format mp3 --audio-quality 0 --add-metadata --embed-thumbnail 
 # Create file with URLs (one per line)
 # Select option 8, provide file path
 
-### 14. MEDIA-CONVERTER.SH - Media Format Converter
+### 19. MEDIA-CONVERTER.SH - Media Format Converter
 # Basic usage:
 ./media-converter.sh
 
@@ -274,7 +542,7 @@ yt-dlp -x --audio-format mp3 --audio-quality 0 --add-metadata --embed-thumbnail 
 # Batch convert:
 # Select option 4, /path/to/directory, mp3, audio
 
-### 15. TEXT-PROCESSOR.SH - Advanced Text Processing
+### 20. TEXT-PROCESSOR.SH - Advanced Text Processing
 # Basic usage:
 ./text-processor.sh
 
@@ -300,7 +568,7 @@ yt-dlp -x --audio-format mp3 --audio-quality 0 --add-metadata --embed-thumbnail 
 ## SCRIPT MANAGER
 ## ===========================================
 
-### SCRIPT-MANAGER.SH - Central Script Hub
+### 21. SCRIPT-MANAGER.SH - Central Script Hub
 # Basic usage:
 ./script-manager.sh
 
@@ -312,62 +580,147 @@ yt-dlp -x --audio-format mp3 --audio-quality 0 --add-metadata --embed-thumbnail 
 - Edit scripts in directory
 - Reload manager without exit
 
-# Options 1-15: Run individual scripts
-# Option 16: Show detailed script info
-# Option 17: Reload manager
-# Option 18: Edit scripts in editor
-# Option 19: Open scripts directory
-# Option 20: Create new script template
+# Options 1-20: Run individual scripts
+# Option 21: Show detailed script info
+# Option 22: Reload manager
+# Option 23: Edit scripts in editor
+# Option 24: Open scripts directory
+# Option 25: Create new script template
+
+## ===========================================
+## COMPLETE SCRIPT SUMMARY
+## ===========================================
+
+### All Available Scripts (21 total):
+1. system-info.sh       - System information display
+2. system-monitor.sh    - Real-time monitoring dashboard  
+3. cleanup.sh           - System cleanup and maintenance
+4. update-all.sh        - Complete system update
+5. auto-backup.sh       - Automated backup solution
+6. battery-monitor.sh   - Battery status monitor
+7. install-essentials.sh - Essential package installer
+8. dev-setup.sh         - Development environment setup
+9. dev-tools.sh         - Advanced development tools & Git helper
+10. network-scan.sh     - Network device scanner
+11. network-tools.sh    - Advanced networking utilities
+12. password-gen.sh     - Secure password generator
+13. weather.sh          - Weather information
+14. task-scheduler.sh   - Task scheduler & workflow automation
+15. file-organizer.sh   - Automatic file organization
+16. qr-generator.sh     - QR code generator
+17. quick-utils.sh      - Fast utility functions
+18. youtube-dl.sh       - YouTube downloader
+19. media-converter.sh  - Media format converter
+20. text-processor.sh   - Advanced text processing
+21. script-manager.sh   - Central script hub
 
 ## ===========================================
 ## ADVANCED USAGE EXAMPLES
 ## ===========================================
 
-### Chaining Commands:
-# Update system then clean up:
-./update-all.sh && ./cleanup.sh
+### Essential Setup Workflow:
+# 1. First-time setup (run in this order):
+./install-essentials.sh    # Install required packages
+./dev-setup.sh            # Configure development environment
+./auto-backup.sh          # Setup backup system
+./task-scheduler.sh setup # Setup automation system
+./network-tools.sh setup  # Setup network tools
 
-# Get system info and save to file:
-./system-info.sh > system_report.txt
+### Daily Maintenance Automation:
+# Create automated daily maintenance with task scheduler:
+./task-scheduler.sh wizard
+# Select option 2 (System monitoring)
+# This creates automated system monitoring with alerts
 
-# Organize files then check disk usage:
-./file-organizer.sh && df -h
+# Or manually chain commands:
+./system-monitor.sh -r && ./cleanup.sh && ./auto-backup.sh --auto
 
-### Automation Examples:
-# Daily maintenance (add to cron if available):
-#!/bin/bash
-./update-all.sh
-./cleanup.sh
-./battery-monitor.sh > daily_battery_$(date +%Y%m%d).log
+### Development Workflow:
+# Complete development setup:
+./dev-tools.sh setup      # Setup dev environment
+./dev-tools.sh init       # Create new project
+./dev-tools.sh status     # Check git status
+./dev-tools.sh commit     # Quick commit
 
-# Backup important directories:
-./quick-utils.sh
-# Then use backup function for each important directory
+### Network Analysis Workflow:
+./network-tools.sh info   # Get network information
+./network-tools.sh wifi   # Analyze WiFi networks
+./network-tools.sh scan   # Scan for open ports
+./network-tools.sh check  # Test connectivity
 
-### Integration with Android:
-# Download music from YouTube:
-./youtube-dl.sh  # Option 1 for audio
-./file-organizer.sh  # Organize downloaded files
+### System Monitoring Setup:
+# Real-time monitoring:
+./system-monitor.sh -c    # Continuous monitoring
 
-# Convert and compress media:
-./media-converter.sh  # Convert formats
-./quick-utils.sh  # Compress results
+# Or setup automated monitoring:
+./task-scheduler.sh create
+# Choose system monitoring task, schedule every 30 minutes
+
+### Backup Strategy:
+# Interactive backup:
+./auto-backup.sh          # Select directories and backup
+
+# Automated daily backup:
+./auto-backup.sh --config # Configure backup settings
+./task-scheduler.sh schedule auto-backup
+# Schedule daily at 2 AM
+
+### Media Management:
+# Download and organize media:
+./youtube-dl.sh           # Download audio/video
+./media-converter.sh      # Convert formats
+./file-organizer.sh       # Organize by type
+
+### Security & Network Tools:
+./password-gen.sh         # Generate secure passwords
+./network-tools.sh ssl    # Check SSL certificates
+./network-tools.sh scan   # Port scanning
 
 ### Productivity Workflows:
-# 1. Morning setup:
-   ./weather.sh           # Check weather
-   ./battery-monitor.sh   # Check battery
-   ./network-scan.sh      # Check network
+# Morning routine:
+./weather.sh             # Check weather
+./system-monitor.sh -r   # System report
+./network-tools.sh check # Connectivity check
 
-# 2. Development setup:
-   ./install-essentials.sh  # One time
-   ./dev-setup.sh          # One time
-   ./update-all.sh         # Regular updates
+# Development session:
+./dev-tools.sh status    # Git status
+./system-monitor.sh      # Monitor resources
+./task-scheduler.sh list # Check scheduled tasks
 
-# 3. File management:
-   ./file-organizer.sh     # Organize downloads
-   ./quick-utils.sh        # Backup important files
-   ./cleanup.sh            # Clean system
+# Maintenance routine:
+./update-all.sh          # Update packages
+./cleanup.sh             # Clean system
+./auto-backup.sh --list  # Check backups
+
+### Advanced Automation Examples:
+# Setup complete automation workflow:
+1. ./task-scheduler.sh create
+   # Create daily backup task
+
+2. ./task-scheduler.sh create  
+   # Create system monitoring task
+
+3. ./task-scheduler.sh create
+   # Create cleanup task (weekly)
+
+4. ./task-scheduler.sh list
+   # Verify all scheduled tasks
+
+### Integration Workflows:
+# Web development workflow:
+./dev-tools.sh init       # Create project
+./network-tools.sh info   # Get network info for testing
+./system-monitor.sh       # Monitor during development
+
+# System administration:
+./system-info.sh > report.txt    # Document system
+./network-tools.sh scan          # Security scan
+./auto-backup.sh                 # Backup configs
+
+# Media production:
+./youtube-dl.sh                  # Download content
+./media-converter.sh             # Process media
+./file-organizer.sh              # Organize output
 
 ## ===========================================
 ## TROUBLESHOOTING
@@ -398,21 +751,79 @@ yt-dlp -x --audio-format mp3 --audio-quality 0 --add-metadata --embed-thumbnail 
    # If not, install:
    pkg install bash
 
-### Performance Tips:
-- Run cleanup.sh regularly
-- Use update-all.sh weekly
-- Monitor battery with battery-monitor.sh
-- Organize files with file-organizer.sh monthly
-- Backup important data with quick-utils.sh backup function
+7. Cron Jobs Not Working (task-scheduler.sh):
+   pkg install cronie
+   crond  # Start cron daemon
+   
+8. Network Tools Missing Dependencies:
+   ./network-tools.sh setup  # Auto-install dependencies
+   
+9. Git Commands Fail (dev-tools.sh):
+   ./dev-tools.sh setup     # Configure git properly
+   
+10. Backup Script Storage Issues:
+    termux-setup-storage     # Grant storage permission
+    mkdir -p ~/storage/shared/Backups
 
-### File Locations:
+### Script-Specific Troubleshooting:
+
+#### system-monitor.sh:
+- "bc command not found": pkg install bc
+- Battery info shows N/A: Install termux-api
+- Network stats unavailable: Check /sys/class/net/ permissions
+
+#### auto-backup.sh:
+- "No write permission": Run termux-setup-storage
+- Backup fails: Check available storage space with df -h
+- Checksum errors: Verify integrity with sha256sum
+
+#### dev-tools.sh:
+- Git not configured: Script will prompt for name/email
+- SSH key generation fails: Check ~/.ssh directory permissions
+- Code formatter not found: Scripts auto-install formatters
+
+#### network-tools.sh:
+- Port scan fails: Install nmap with pkg install nmap
+- WiFi scan empty: Install termux-api and grant permissions
+- SSL check fails: Install openssl with pkg install openssl
+
+#### task-scheduler.sh:
+- Cron jobs don't run: Start crond daemon
+- Tasks fail to execute: Check task script permissions
+- Notifications don't work: Install termux-api
+
+### Performance Tips:
+- Run cleanup.sh weekly to maintain performance
+- Use system-monitor.sh to track resource usage
+- Schedule auto-backup.sh for automated backups
+- Monitor battery with battery-monitor.sh on battery-powered devices
+- Use task-scheduler.sh for automated maintenance
+- Keep network-tools.sh handy for connectivity issues
+
+### File Locations & Important Paths:
 - Scripts directory: Current directory with all .sh files
+- Termux home: /data/data/com.termux/files/home (~)
+- Android storage: /storage/emulated/0
 - Downloads: /storage/emulated/0/Download
 - Music: /storage/emulated/0/Music
 - Videos: /storage/emulated/0/Videos
-- Backups: /storage/emulated/0/Backups (default)
-- Termux home: /data/data/com.termux/files/home
-- Android storage: /storage/emulated/0
+- Backups: /storage/emulated/0/Backups (auto-backup.sh)
+- System monitor logs: ~/.system_monitor.log
+- Automation tasks: ~/.automation/tasks/
+- Automation logs: ~/.automation/logs/
+- Dev tools config: ~/.dev-tools/
+- Network tools logs: ~/.network-tools/network.log
+- Git config: ~/.gitconfig
+- SSH keys: ~/.ssh/
+
+### Dependencies & Requirements:
+- Essential packages: Install with install-essentials.sh
+- Storage access: termux-setup-storage (for file operations)
+- API access: pkg install termux-api + Termux:API app
+- Cron scheduling: pkg install cronie
+- Network tools: nmap, netcat-openbsd, dnsutils
+- Development: git, python, nodejs (optional)
+- Media tools: ffmpeg, yt-dlp (auto-installed when needed)
 
 ## ===========================================
 ## KEYBOARD SHORTCUTS & TIPS
@@ -424,18 +835,54 @@ yt-dlp -x --audio-format mp3 --audio-quality 0 --add-metadata --embed-thumbnail 
 - Ctrl+L: Clear screen
 - Volume Down + C: Ctrl key
 - Volume Down + X: Alt key
+- Volume Down + T: Tab key
+- Volume Down + 1-9: F1-F9 keys
 
 ### Quick Navigation:
 - cd ~: Go to home directory
 - cd /storage/emulated/0: Go to Android storage
 - ls -la: List all files with details
 - pwd: Show current directory
+- find . -name "*.sh": Find all shell scripts
 
 ### Script Shortcuts (after dev-setup.sh):
-- ll: Detailed file listing
+- ll: Detailed file listing (ls -la)
 - cls: Clear screen
 - gs: Git status
-- py: Python
+- py: Python interpreter
 - serve: Start HTTP server on port 8000
+- ...: Go up two directories
+- extract: Quick archive extraction
 
-Remember: Always run install-essentials.sh first, then dev-setup.sh for best experience!
+### Pro Tips:
+1. Use tab completion for file paths
+2. Use history command to see previous commands
+3. Use !! to repeat last command
+4. Use !command to repeat last command starting with "command"
+5. Use Ctrl+R for reverse search in command history
+6. Use screen or tmux for persistent sessions
+7. Use && to chain successful commands
+8. Use || for fallback commands
+9. Use & to run commands in background
+10. Use nohup for commands that survive logout
+
+### Quick Script Access:
+# Create aliases for frequently used scripts:
+alias sysmon='./system-monitor.sh'
+alias backup='./auto-backup.sh' 
+alias devtools='./dev-tools.sh'
+alias nettools='./network-tools.sh'
+alias scheduler='./task-scheduler.sh'
+
+# Add to ~/.bashrc to make permanent:
+echo "alias sysmon='./system-monitor.sh'" >> ~/.bashrc
+
+### Recommended Workflow for New Users:
+1. ./install-essentials.sh    # Install base packages
+2. ./dev-setup.sh            # Setup development environment  
+3. termux-setup-storage      # Grant storage access
+4. ./auto-backup.sh          # Setup backup system
+5. ./task-scheduler.sh setup # Setup automation
+6. ./script-manager.sh       # Access all scripts easily
+
+Remember: The script-manager.sh provides easy access to all scripts with descriptions!
